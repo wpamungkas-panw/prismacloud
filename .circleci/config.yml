@@ -1,10 +1,10 @@
 version: 2.1
 orbs:
   prisma: prisma_cloud/devops_security@2.2.0
-  jobs:
-  docker_build_and_save:
-    executor: prisma/compute
-    steps:
+
+workflows:
+build:
+jobs:
       - checkout
       - run: docker pull nginx
       - run: mkdir -p workspace
@@ -14,7 +14,6 @@ orbs:
           root: workspace
           paths:
             - image.tar
-workflows:
   scan:
     jobs:
       - prisma/image_scan:
