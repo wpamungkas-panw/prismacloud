@@ -21,8 +21,8 @@ workflows:
       - prisma/image_scan:
           requires:
            - docker_build_and_save
-          prisma_cloud_compute_url: PC_COMPUTE_URL
-          prisma_cloud_compute_user: PC_COMPUTE_USER
+          prisma_cloud_compute_url: 'https://157.52.255.14:8083'
+          prisma_cloud_compute_user: demo
           prisma_cloud_compute_pass: PC_COMPUTE_PASS
           image: 'myrepo/myimage:tag'
           image_tar: image.tar
