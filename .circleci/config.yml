@@ -31,7 +31,7 @@ jobs:
         command: docker load -i workspace/image.tar
     - run:
         command: |
-          result = $(./twistcli images scan --ci --details --address https://157.52.255.14:8083 -u demo -p ${PC_COMPUTE_PASS} nginx:latest])
+          result = $(./twistcli images scan --ci --details --address https://157.52.255.14:8083 -u demo -p ${PC_COMPUTE_PASS} nginx:latest)
           if [result == 1]; then exit 1; else
           exit 0;
           fi
