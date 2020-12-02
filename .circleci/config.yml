@@ -17,6 +17,7 @@ orbs:
 workflows:
   scan:
       jobs:
+      - docker_build_and_save:
       - prisma/image_scan:
           prisma_cloud_compute_url: 'https://157.52.255.14:8083'
           prisma_cloud_compute_user: demo
