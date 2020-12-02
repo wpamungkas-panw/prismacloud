@@ -24,5 +24,5 @@ workflows:
           prisma_cloud_compute_url: 'https://157.52.255.14:8083'
           prisma_cloud_compute_user: demo
           prisma_cloud_compute_pass: PC_COMPUTE_PASS
-          image: 'myrepo/myimage:tag'
+          image: 'nginx:latest'
           image_tar: image.tar
