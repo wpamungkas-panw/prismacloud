@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
-  prisma: prisma_cloud/devops_security@2.2.0
-  jobs:
+  prisma: prisma_cloud/devops_security@2.0.0
+jobs:
   docker_build_and_save:
     executor: prisma/compute
     steps:
@@ -16,12 +16,13 @@ orbs:
             - image.tar
 workflows:
   scan:
-      jobs:
-      - docker_build_and_save:
+    jobs:
+      - docker_build_and_save
       - prisma/image_scan:
-          prisma_cloud_compute_url: 'https://157.52.255.14:8083'
-          prisma_cloud_compute_user: demo
-          prisma_cloud_compute_pass: 
+          requires:
+            - docker_build_and_save
+          prisma_cloud_compute_url: <prisma cloud compute console url>
+          prisma_cloud_compute_user: <prisma cloud compute username>
+          prisma_cloud_compute_pass: PC_COMPUTE_PASS
           image: 'myrepo/myimage:tag'
           image_tar: image.tar
-          
