@@ -1,28 +1,42 @@
-version: 2.1
-orbs:
-  prisma: prisma_cloud/devops_security@2.2.0
+version: 2
 jobs:
   docker_build_and_save:
-    executor: prisma/compute
+    machine: true
+    working_directory: /tmp/twistlock-scan
     steps:
-      - checkout
-      - run: docker pull nginx
-      - run: mkdir -p workspace
-      - run: docker image
-      - run: 'docker save nginx:latest -o workspace/image.tar'
-      - persist_to_workspace:
-          root: workspace
-          paths:
-            - image.tar
+    - checkout
+    - run:
+        command: docker pull nginx
+    - run:
+        command: mkdir -p workspace
+    - run:
+        command: docker image
+    - run:
+        command: docker save nginx:latest -o workspace/image.tar
+    - persist_to_workspace:
+        root: workspace
+        paths:
+        - image.tar
+  prisma/image_scan:
+    machine: true
+    working_directory: /tmp/twistlock-scan
+    steps:
+    - run:
+        command: curl -k -u demo:${PC_COMPUTE_PASS} --output ./twistcli https://157.52.255.14:8083/api/v1/util/twistcli
+    - run:
+        command: sudo chmod a+x ./twistcli
+    - attach_workspace:
+        at: workspace
+    - run:
+        command: docker load -i workspace/image.tar
+    - run:
+        command: |
+          if [[./twistcli images scan --ci --details --address https://157.52.255.14:8083 -u demo -p ${PC_COMPUTE_PASS} nginx:latest] == 1]then exit 1;
 workflows:
   scan:
     jobs:
-      - docker_build_and_save
-      - prisma/image_scan:
-          requires:
-           - docker_build_and_save
-          prisma_cloud_compute_url: 'https://157.52.255.14:8083'
-          prisma_cloud_compute_user: demo
-          prisma_cloud_compute_pass: PC_COMPUTE_PASS
-          image: 'nginx:latest'
-          image_tar: image.tar
+    - docker_build_and_save
+    - prisma/image_scan:
+        requires:
+        - docker_build_and_save
+  version: 2
