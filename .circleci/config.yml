@@ -33,7 +33,7 @@ jobs:
         command: |
           result=$(./twistcli images scan --ci --details --address https://157.52.255.14:8083 -u demo -p ${PC_COMPUTE_PASS} nginx:latest | grep -c FAIL)
           echo "result code: $result"; 
-          if [[ "$result" -eq 0 ]];
+          if [ $result -eq 0 ];
             then 
               echo "pass code: $result"; 
               exit 0; 
