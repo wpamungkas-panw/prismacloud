@@ -32,7 +32,8 @@ jobs:
     - run:
         command: |
           result=$(./twistcli images scan --ci --details --address https://157.52.255.14:8083 -u demo -p ${PC_COMPUTE_PASS} nginx:latest)
-          if [$result == 1]; then exit 1; else
+          if [$result == 1]; then echo $result; exit 1; else
+          echo $result;
           exit 0;
           fi
     
