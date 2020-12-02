@@ -35,14 +35,12 @@ jobs:
           code=$(echo "$result" |grep FAIL | awk '{print $1}')
           echo "result: $result"; 
           echo "code: $code"; 
-          if [[ "$code" -eq 1 || "$code" -eq 2 ]] 
-            then 
-              echo "pass code: $code"; 
-              exit 1; 
-            else
-              echo "fail code: $code";
-              exit 0;
-          fi
+         # if [[ "$code" -eq 1 || "$code" -eq 2 ]] 
+         #   then 
+         #     exit 1; 
+         #   else
+         #     echo "fail code: $code";
+         # fi
     
 workflows:
   scan:
