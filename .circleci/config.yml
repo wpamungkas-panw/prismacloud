@@ -22,7 +22,7 @@ jobs:
     working_directory: /tmp/twistlock-scan
     steps:
     - run:
-        command: curl -k -u ${PC_COMPUTE_USER}:${PC_COMPUTE_PASS} --output ./twistcli ${PC_COMPUTE_URL}/api/v1/util/twistcli
+        command: curl -k -u ${PC_COMPUTE_USER2}:${PC_COMPUTE_PASS2} --output ./twistcli ${PC_COMPUTE_URL2}/api/v1/util/twistcli
     - run:
         command: sudo chmod a+x ./twistcli
     - attach_workspace:
@@ -31,7 +31,7 @@ jobs:
         command: docker load -i workspace/image.tar
     - run:
         command: |
-          result=$(./twistcli images scan --ci --details --address ${PC_COMPUTE_URL} -u ${PC_COMPUTE_USER} -p ${PC_COMPUTE_PASS} nginx:latest)
+          result=$(./twistcli images scan --ci --details --address ${PC_COMPUTE_URL2} -u ${PC_COMPUTE_USER2} -p ${PC_COMPUTE_PASS2} nginx:latest)
           echo "$result"
           code=$(echo "$result" | grep -c PASS)
           if [[ "$code" != "2" ]] 
