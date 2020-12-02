@@ -34,7 +34,8 @@ jobs:
           result=$(./twistcli images scan --ci --details --address https://157.52.255.14:8083 -u demo -p ${PC_COMPUTE_PASS} nginx:latest)
           echo "$result"
           code=$(echo "$result" | grep -c PASS)
-          if [[ "$code" != "2" ]] then
+          if [[ "$code" != "2" ]] 
+          then
             exit 1;
           fi
     
