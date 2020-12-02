@@ -1,24 +1,15 @@
 version: 2.1
 orbs:
   prisma: prisma_cloud/devops_security@2.2.0
-
 workflows:
-build:
-jobs:
-      - checkout
-      - run: docker pull nginx
-      - run: mkdir -p workspace
-      - run: docker image
-      - run: 'docker save nginx:latest -o workspace/image.tar'
-      - persist_to_workspace:
-          root: workspace
-          paths:
-            - image.tar
+  build:
+    jobs:
+       - run: docker pull nginx
   scan:
     jobs:
       - prisma/image_scan:
           prisma_cloud_compute_url: 'https://157.52.255.14:8083'
           prisma_cloud_compute_user: demo
-          prisma_cloud_compute_pass:
+          prisma_cloud_compute_pass: 
           image: 'myrepo/myimage:tag'
           image_tar: image.tar
