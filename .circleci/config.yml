@@ -35,8 +35,6 @@ jobs:
           echo "$result"
           code=$(echo "$result" | grep -c PASS)
           if [[ "$code" != "2" ]] 
-          then 
-            exit 1; 
           fi
     
 workflows:
