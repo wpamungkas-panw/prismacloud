@@ -1,1 +1,13 @@
 version: 2.1
+orbs:
+  prisma: prisma_cloud/devops_security@2.2.0
+  
+workflows:
+  scan:
+    jobs:
+      - prisma/image_scan:
+          prisma_cloud_compute_url: 'https://157.52.255.14:8083'
+          prisma_cloud_compute_user: demo
+          prisma_cloud_compute_pass:
+          image: 'myrepo/myimage:tag'
+          image_tar: image.tar
