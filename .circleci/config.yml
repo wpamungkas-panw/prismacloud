@@ -46,4 +46,6 @@ workflows:
     - prisma/image_scan:
         requires:
         - docker_build_and_save
+    - store_artifacts:
+        path: /tmp/twistlock-scan
   version: 2
