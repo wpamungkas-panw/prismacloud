@@ -33,8 +33,8 @@ jobs:
         command: |
           result=$(./twistcli images scan --ci --details --output-file scan_result.json --address ${PC_COMPUTE_URL2} -u ${PC_COMPUTE_USER2} -p ${PC_COMPUTE_PASS2} nginx:latest)
           echo "$result"
-          code=$(echo "$result" | grep -c FAIL)
-          if "$code" -eq 0
+          code=$(echo "$result" | grep -c PASS)
+          if [[ "$code" != "2" ]]
           then
             exit 1;
           fi
