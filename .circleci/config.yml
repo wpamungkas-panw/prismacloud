@@ -30,15 +30,7 @@ jobs:
     - run:
         command: docker load -i workspace/image.tar
     - run:
-        command: |
-        ./twistcli images scan --ci --details --output-file scan_result.json --address ${PC_COMPUTE_URL2} -u ${PC_COMPUTE_USER2} -p ${PC_COMPUTE_PASS2} nginx:latest)
-         # result=$(./twistcli images scan --ci --details --output-file scan_result.json --address ${PC_COMPUTE_URL2} -u ${PC_COMPUTE_USER2} -p ${PC_COMPUTE_PASS2} nginx:latest)
-         # echo "$result"
-         # code=$(echo "$result" | grep -c PASS)
-         # if [[ "$code" != "2" ]]
-         # then
-         #   exit 1;
-         # fi
+        command: ./twistcli images scan --ci --details --output-file scan_result.json --address ${PC_COMPUTE_URL2} -u ${PC_COMPUTE_USER2} -p ${PC_COMPUTE_PASS2} nginx:latest)
     - store_artifacts:
         path: scan_result.json
     
